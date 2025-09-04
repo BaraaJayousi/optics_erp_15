@@ -26,7 +26,8 @@ app_license = "apache-2.0"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/optics_erp/css/optics_erp.css"
-# app_include_js = "/assets/optics_erp/js/optics_erp.js"
+# app_include_js = "/assets/optics_erp/js/index.js"
+app_include_js =  ['pos_extend.bundle.js']
 
 # include js, css files in header of web template
 # web_include_css = "/assets/optics_erp/css/optics_erp.css"
@@ -40,10 +41,10 @@ app_license = "apache-2.0"
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {"point-of-sale" : "public/js/pos.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Customer" : "public/js/custom_client_scripts/customer/make_full_name.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
