@@ -102,7 +102,7 @@ function normalizeArabic(str) {
     return str
         .replace(/[أإآ]/g, 'ا')   // hamza-on-alif → alif
         .replace(/ة/g, 'ه')       // ta marbuta → heh
-        .replace(/ى/g, 'ي')       // alif maqsura → yeh
+        // .replace(/ى/g, 'ي')       // alif maqsura → yeh
         .replace(/ؤ/g, 'و')       // waw with hamza → waw
         .replace(/ئ/g, 'ي')       // yeh with hamza → yeh
         .replace(/ٱ/g, 'ا')       // alif wasla → alif
