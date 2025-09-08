@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:refractor_name",
  "creation": "2025-09-06 00:41:56.707131",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -13,16 +14,18 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Refractor Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-06 00:42:34.029159",
+ "modified": "2025-09-06 00:56:51.749194",
  "modified_by": "Administrator",
  "module": "Optics ERP",
  "name": "Refractor",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

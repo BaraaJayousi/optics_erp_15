@@ -1,11 +1,12 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{customer}-{prescription_type}-{DD}-{MM}-{YY}-By-{refractor}",
  "creation": "2025-09-05 23:56:02.078455",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "patient",
+  "customer",
   "refractor",
   "refraction_date",
   "prescription_type",
@@ -41,14 +42,6 @@
   "notes"
  ],
  "fields": [
-  {
-   "fieldname": "patient",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Patient",
-   "options": "Customer",
-   "reqd": 1
-  },
   {
    "fieldname": "refractor",
    "fieldtype": "Link",
@@ -92,7 +85,8 @@
   {
    "fieldname": "expiry_date",
    "fieldtype": "Date",
-   "label": "Expiry Date"
+   "label": "Expiry Date",
+   "reqd": 1
   },
   {
    "fieldname": "general_measurements_section",
@@ -106,6 +100,7 @@
    "label": "Right Eye"
   },
   {
+   "default": "30.0",
    "fieldname": "right_pd_mm",
    "fieldtype": "Float",
    "label": "Right PD (mm)",
@@ -121,6 +116,7 @@
    "label": "Left Eye"
   },
   {
+   "default": "30.0",
    "fieldname": "left_pd_mm",
    "fieldtype": "Float",
    "label": "Left PD (mm)",
@@ -136,6 +132,7 @@
    "label": "Total PD (mm)"
   },
   {
+   "collapsible": 1,
    "fieldname": "glasses_refraction_section",
    "fieldtype": "Section Break",
    "label": "Glasses Refraction"
@@ -262,15 +259,24 @@
    "fieldname": "notes",
    "fieldtype": "Long Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Patient",
+   "options": "Customer",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-06 00:42:44.334581",
+ "modified": "2025-09-08 09:13:49.859598",
  "modified_by": "Administrator",
  "module": "Optics ERP",
  "name": "Refraction",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
