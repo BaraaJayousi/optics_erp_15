@@ -11,7 +11,7 @@ def get_latest_refraction(customer: str):
         "Refraction",
         filters={"customer": customer},
         fields=["name"],
-        order_by="refraction_date desc, modified desc",
+        order_by="creation desc, modified desc",
         page_length=1,
     )
     if not rows:

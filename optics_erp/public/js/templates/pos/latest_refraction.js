@@ -12,8 +12,8 @@ export const latest_refraction_template = (refraction) => {
                     Refractor: <strong class="refractor-name">${refraction.refractor}</strong>
                 </div>
             </div>
-            <div>
-                <span class="badge refraction-type">${refraction.type}</span>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge align-middle badge-pill badge-${refraction.type == 'Glasses'? 'success': 'info'} refraction-type">${refraction.type}</span>
             </div>
         </div>
 
@@ -40,13 +40,13 @@ export const latest_refraction_template = (refraction) => {
                 <tbody>
                     <tr>
                         <td class="fw-semibold">Sphere (SPH)</td>
-                        <td class="text-center sphere-od">${refraction.right.sph > 0? "+" : "-"}${refraction.right.sph}</td>
-                        <td class="text-center sphere-os">${refraction.left.sph > 0? "+" : "-"}${refraction.left.sph}</td>
+                        <td class="text-center sphere-od">${refraction.right.sph > 0? "+" : ""}${refraction.right.sph}</td>
+                        <td class="text-center sphere-os">${refraction.left.sph > 0? "+" : ""}${refraction.left.sph}</td>
                     </tr>
                     <tr>
                         <td class="fw-semibold">Cylinder (CYL)</td>
-                        <td class="text-center cylinder-od">-${refraction.right.cyl}</td>
-                        <td class="text-center cylinder-os">-${refraction.left.cyl}</td>
+                        <td class="text-center cylinder-od">${refraction.right.cyl}</td>
+                        <td class="text-center cylinder-os">${refraction.left.cyl}</td>
                     </tr>
                     <tr>
                         <td class="fw-semibold">Axis (°)</td>
