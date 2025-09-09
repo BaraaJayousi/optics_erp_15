@@ -275,19 +275,19 @@ Promise.all([
                 <th scope="row" class="w-25">${__('Refraction Date')}</th>
                 <td class="w-25">${rx.refraction_date || '--'}</td>
                 <th scope="row" class="w-25">${__('Creation Date')}</th>
-                <td class="w-25">${rx.creation || '--' }</td>
+                <td class="w-25">${rx.creation || '--'}</td>
             </tr>
             <tr>
                 <th scope="row">${__('Expiry Date')}</th>
-                <td>${rx.expiry_date || '--' }</td>
+                <td>${rx.expiry_date || '--'}</td>
                 <th scope="row">${__('Refractionist')}</th>
-                <td>${rx.refractor || '--' }</td>
+                <td>${rx.refractor || '--'}</td>
             </tr>
             <tr>
                 <th scope="row">${__('PD Right')}</th>
-                <td>${rx.right_pd_mm || '--' }</td>
+                <td>${rx.right_pd_mm || '--'}</td>
                 <th scope="row">${__('PD Left')}</th>
-                <td>${rx.left_pd_mm || '--' }</td>
+                <td>${rx.left_pd_mm || '--'}</td>
             </tr>
         </tbody>
     </table>
@@ -310,21 +310,21 @@ Promise.all([
         <tbody>
             <tr>
                 <th scope="row">${__('Right')}</th>
-                <td>${rx.right_sph   != null ? rx.right_sph   : '--'}</td>
-                <td>${rx.right_cyl   != null ? rx.right_cyl   : '--'}</td>
-                <td>${rx.right_axis  != null ? rx.right_axis  : '--'}</td>
-                <td>${rx.right_add   != null ? rx.right_add   : '--'}</td>
-                <td>${rx.right_va_sc_decimal  != null ? rx.right_va_sc_decimal  : '--'}</td>
-                <td>${rx.right_va_cc_decimal  != null ? rx.right_va_cc_decimal  : '--'}</td>
+                <td>${rx.right_sph != null ? rx.right_sph : '--'}</td>
+                <td>${rx.right_cyl != null ? rx.right_cyl : '--'}</td>
+                <td>${rx.right_axis != null ? rx.right_axis : '--'}</td>
+                <td>${rx.right_add != null ? rx.right_add : '--'}</td>
+                <td>${rx.right_va_sc_decimal != null ? rx.right_va_sc_decimal : '--'}</td>
+                <td>${rx.right_va_cc_decimal != null ? rx.right_va_cc_decimal : '--'}</td>
             </tr>
             <tr>
                 <th scope="row">${__('Left')}</th>
-                <td>${rx.left_sph   != null ? rx.left_sph   : '--' }</td>
-                <td>${rx.left_cyl   != null ? rx.left_cyl   : '--' }</td>
-                <td>${rx.left_axis  != null ? rx.left_axis  : '--' }</td>
-                <td>${rx.left_add   != null ? rx.left_add   : '--' }</td>
-                <td>${rx.left_va_sc_decimal  != null ? rx.left_va_sc_decimal  : '--' }</td>
-                <td>${rx.left_va_cc_decimal  != null ? rx.left_va_cc_decimal  : '--' }</td>
+                <td>${rx.left_sph != null ? rx.left_sph : '--'}</td>
+                <td>${rx.left_cyl != null ? rx.left_cyl : '--'}</td>
+                <td>${rx.left_axis != null ? rx.left_axis : '--'}</td>
+                <td>${rx.left_add != null ? rx.left_add : '--'}</td>
+                <td>${rx.left_va_sc_decimal != null ? rx.left_va_sc_decimal : '--'}</td>
+                <td>${rx.left_va_cc_decimal != null ? rx.left_va_cc_decimal : '--'}</td>
             </tr>
         </tbody>
     </table>
@@ -342,18 +342,59 @@ Promise.all([
 
         open_prescritption_print_dialog() {
             console.log('Open Prescription Print Dialog');
-            let d = new frappe.ui.Dialog({
-                title: 'Print Prescription',
+            const d = new frappe.ui.Dialog({
+                title: __('Print Prescription'),
                 fields: [
-                    { label: 'Select Prescription', fieldname: 'Refraction', fieldtype: 'Link', options: 'Refraction' },
+                    { label: __('Select Prescription'), fieldname: 'refraction', fieldtype: 'Link', options: 'Refraction', reqd: 1 },
                 ],
                 primary_action_label: __('Print'),
-                primary_action(values) {
-                    // Implement print logic here
-                    d.hide();
+                primary_action: (values) => {
+                    frappe.ui.form.qz_connect().then(() => {
+                        return qz.printers.find("80mm printer");
+                    }).then(async (printer) => {
+                        const cfg = qz.configs.create(printer, {
+                            units: 'mm',
+                            size: { width: 80, height: 0 },
+                            margins: 0,
+                            jobName: `Print Refraction ${values.refraction}`,
+                            scaleContent: false,
+                            colorType: 'grayscale'
+                        });
+                        // const url = this.refractionPrintUrl(values.refraction)
+                        const html_temp = await this.loadPrintHtml(values.refraction, '80mm html');
+                        console.log(html_temp);
+                        const data = [{
+                            type: 'pixel',
+                            format: 'html',
+                            flavor: 'plain',
+                            data: html_temp
+                        }];
+                        return qz.print(cfg, data);
+                    }).then(frappe.ui.form.qz_success)
+                        .catch(frappe.ui.form.qz_fail);
                 }
             });
             d.show();
         }
-    }
+        refractionPrintUrl(name, format = '80mm html') {
+            const base = frappe.urllib.get_base_url(); // absolute site URL
+            const qs = new URLSearchParams({
+                doctype: 'Refraction',
+                name,
+                format,
+                no_letterhead: 0,
+                show_toolbar: 0,
+                _lang: frappe.boot.user_lang || frappe.boot.lang || 'en'
+            });
+            return `${base}/printview?${qs.toString()}`;
+        }
+
+        async loadPrintHtml(name, format) {
+            const url = this.refractionPrintUrl(name, format);
+            console.log(`Loading print HTML from ${url}`);
+            const res = await fetch(url, { credentials: 'include' }); // send cookies/session
+            if (!res.ok) throw new Error(`Failed to load print HTML (${res.status})`);
+            return await res.text();
+        }   
+}
 });

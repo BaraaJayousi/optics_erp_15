@@ -14,6 +14,7 @@
   "column_break_idcn",
   "date_of_birth",
   "age",
+  "mobile_phone",
   "general_measurements_section",
   "re_pd_heading",
   "right_pd_mm",
@@ -269,12 +270,17 @@
    "label": "Patient",
    "options": "Customer",
    "reqd": 1
+  },
+  {
+   "fieldname": "mobile_phone",
+   "fieldtype": "Read Only",
+   "label": "Mobile Phone"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-08 15:16:27.827319",
+ "modified": "2025-09-09 18:39:41.899977",
  "modified_by": "Administrator",
  "module": "Optics ERP",
  "name": "Refraction",
