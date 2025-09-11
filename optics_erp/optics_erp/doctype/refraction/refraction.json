@@ -1,0 +1,308 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{customer}-{prescription_type}-{DD}-{MM}-{YY}-By-{refractor}-{####}",
+ "creation": "2025-09-05 23:56:02.078455",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "refractor",
+  "refraction_date",
+  "expiry_date",
+  "prescription_type",
+  "column_break_idcn",
+  "date_of_birth",
+  "age",
+  "mobile_phone",
+  "general_measurements_section",
+  "re_pd_heading",
+  "right_pd_mm",
+  "column_break_jvhr",
+  "le_pd_heading",
+  "left_pd_mm",
+  "section_break_cuty",
+  "total_pd_mm",
+  "glasses_refraction_section",
+  "right_eye",
+  "right_sph",
+  "right_cyl",
+  "right_axis",
+  "right_add",
+  "right_va_sc_decimal",
+  "right_va_cc_decimal",
+  "column_break_kveb",
+  "left_eye",
+  "left_sph",
+  "left_cyl",
+  "left_axis",
+  "left_add",
+  "left_va_sc_decimal",
+  "left_va_cc_decimal",
+  "other_info_section",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "refractor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Refractor",
+   "options": "Refractor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "refraction_date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Refraction Date",
+   "reqd": 1
+  },
+  {
+   "default": "Glasses",
+   "fieldname": "prescription_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Prescription Type",
+   "options": "Glasses\nContact Lenses",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_idcn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Read Only",
+   "is_virtual": 1,
+   "label": "Age"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "general_measurements_section",
+   "fieldtype": "Section Break",
+   "hide_border": 1,
+   "label": "General Measurements"
+  },
+  {
+   "fieldname": "re_pd_heading",
+   "fieldtype": "Heading",
+   "label": "Right Eye"
+  },
+  {
+   "default": "30.0",
+   "fieldname": "right_pd_mm",
+   "fieldtype": "Float",
+   "label": "Right PD (mm)",
+   "precision": "1"
+  },
+  {
+   "fieldname": "column_break_jvhr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "le_pd_heading",
+   "fieldtype": "Heading",
+   "label": "Left Eye"
+  },
+  {
+   "default": "30.0",
+   "fieldname": "left_pd_mm",
+   "fieldtype": "Float",
+   "label": "Left PD (mm)",
+   "precision": "1"
+  },
+  {
+   "fieldname": "section_break_cuty",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_pd_mm",
+   "fieldtype": "Read Only",
+   "label": "Total PD (mm)"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "glasses_refraction_section",
+   "fieldtype": "Section Break",
+   "label": "Glasses Refraction"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "right_eye",
+   "fieldtype": "Heading",
+   "label": "Right Eye"
+  },
+  {
+   "default": "0.00",
+   "fieldname": "right_sph",
+   "fieldtype": "Float",
+   "label": "Right Sph",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "0.00",
+   "fieldname": "right_cyl",
+   "fieldtype": "Float",
+   "label": "Right Cyl",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "180",
+   "fieldname": "right_axis",
+   "fieldtype": "Int",
+   "label": "Right Axis",
+   "length": 3,
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "0.00",
+   "fieldname": "right_add",
+   "fieldtype": "Float",
+   "label": "Right Add",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "1.00",
+   "fieldname": "right_va_sc_decimal",
+   "fieldtype": "Float",
+   "label": "Right VA sc (Decimal)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "1.00",
+   "fieldname": "right_va_cc_decimal",
+   "fieldtype": "Float",
+   "label": "Right VA cc (Decimal)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_kveb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "left_eye",
+   "fieldtype": "Heading",
+   "label": "Left Eye"
+  },
+  {
+   "default": "0.00",
+   "fieldname": "left_sph",
+   "fieldtype": "Float",
+   "label": "Left Sph",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "0.00",
+   "fieldname": "left_cyl",
+   "fieldtype": "Float",
+   "label": "Left Cyl",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "180",
+   "fieldname": "left_axis",
+   "fieldtype": "Int",
+   "label": "Left Axis",
+   "length": 3,
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "0.00",
+   "fieldname": "left_add",
+   "fieldtype": "Float",
+   "label": "Left Add",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "1.00",
+   "fieldname": "left_va_sc_decimal",
+   "fieldtype": "Float",
+   "label": "Left VA sc (Decimal)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "1.00",
+   "fieldname": "left_va_cc_decimal",
+   "fieldtype": "Float",
+   "label": "Left VA cc (Decimal)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "other_info_section",
+   "fieldtype": "Section Break",
+   "label": "Other Info"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Long Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Patient",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mobile_phone",
+   "fieldtype": "Read Only",
+   "label": "Mobile Phone"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-09 18:39:41.899977",
+ "modified_by": "Administrator",
+ "module": "Optics ERP",
+ "name": "Refraction",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
