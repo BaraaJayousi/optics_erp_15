@@ -39,13 +39,14 @@ Promise.all([
     erpnext.PointOfSale.ItemCart = class ItemCartWithCustomerDetails extends erpnext.PointOfSale.ItemCart {
         constructor(wrapper, pos) {
             super(wrapper, pos);
-            console.log('ItemCartWithCustomerDetails constructor');
+            // console.log('ItemCartWithCustomerDetails constructor');
         }
 
         toggle_customer_info(show) {
             super.toggle_customer_info(show);
 
             if (show) {
+                optics_erp.initQZ(); // Initialize QZ Tray when customer info is shown
                 // Add custom customer details section
                 const { customer } = this.customer_info || {};
                 if (!customer) return;
@@ -89,7 +90,7 @@ Promise.all([
         }
 
         open_optical_dialog(customer) {
-            console.log('Open Optical Dialog');
+            // console.log('Open Optical Dialog');
             frappe.new_doc('Refraction', { customer }, (qe_dialog) => {
                 const PatientField = qe_dialog.get_field('customer');
                 PatientField.set_value(customer);
@@ -195,7 +196,7 @@ Promise.all([
         }
 
         open_previouse_prescriptions_dialog() {
-            console.log('Open Previouse Prescriptions Dialog');
+            // console.log('Open Previouse Prescriptions Dialog');
             const d = new frappe.ui.Dialog({
                 title: 'Previouse Prescriptions',
                 size: 'large',
@@ -250,7 +251,7 @@ Promise.all([
                     args: { doctype: 'Refraction', name }
                 }).then(r => {
                     const rx = r.message || {};
-                    console.log(rx);
+                    // console.log(rx);
                     // A simple detail layout; replace with your template if you have one
                     $body.html(`
 <div class="mb-2 d-flex justify-content-between align-items-center">
@@ -341,11 +342,11 @@ Promise.all([
         }
 
         open_prescritption_print_dialog() {
-            console.log('Open Prescription Print Dialog');
+            // console.log('Open Prescription Print Dialog');
             const d = new frappe.ui.Dialog({
                 title: __('Print Prescription'),
                 fields: [
-                    { label: __('Select Prescription'), fieldname: 'refraction', fieldtype: 'Link', options: 'Refraction', reqd: 1 },
+                    { label: __('Select Prescription'), fieldname: 'refraction', fieldtype: 'Link', options: 'Refraction', reqd: 1, filters: { customer: this.customer_info.customer } },
                 ],
                 primary_action_label: __('Print'),
                 primary_action: (values) => {
@@ -358,11 +359,11 @@ Promise.all([
                             margins: 0,
                             jobName: `Print Refraction ${values.refraction}`,
                             scaleContent: false,
-                            colorType: 'grayscale'
+                            colorType: 'Default'
                         });
                         // const url = this.refractionPrintUrl(values.refraction)
                         const html_temp = await this.loadPrintHtml(values.refraction, '80mm html');
-                        console.log(html_temp);
+                        // console.log(html_temp);
                         const data = [{
                             type: 'pixel',
                             format: 'html',
@@ -374,8 +375,12 @@ Promise.all([
                         .catch(frappe.ui.form.qz_fail);
                 }
             });
+
+
+
             d.show();
         }
+
         refractionPrintUrl(name, format = '80mm html') {
             const base = frappe.urllib.get_base_url(); // absolute site URL
             const qs = new URLSearchParams({
@@ -391,10 +396,10 @@ Promise.all([
 
         async loadPrintHtml(name, format) {
             const url = this.refractionPrintUrl(name, format);
-            console.log(`Loading print HTML from ${url}`);
+            // console.log(`Loading print HTML from ${url}`);
             const res = await fetch(url, { credentials: 'include' }); // send cookies/session
             if (!res.ok) throw new Error(`Failed to load print HTML (${res.status})`);
             return await res.text();
-        }   
-}
+        }
+    }
 });
