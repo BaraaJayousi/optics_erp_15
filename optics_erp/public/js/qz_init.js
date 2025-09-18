@@ -33,16 +33,16 @@ optics_erp.initQZ = function () {
     qz.security.setSignatureAlgorithm('SHA256');
 
     // Ask our Frappe endpoint to sign the message
-    qz.security.setSignaturePromise(function (toSign) {
-        return function (resolve, reject) {
-            frappe.call({
-                method: 'optics_erp.api.qz_sign.qz_sign',
-                args: { toSign },
-                freeze: false
-            }).then(r => resolve(r.message))
-                .catch(reject);
-        };
-    });
+    // qz.security.setSignaturePromise(function (toSign) {
+    //     return function (resolve, reject) {
+    //         frappe.call({
+    //             method: 'optics_erp.api.qz_sign.qz_sign',
+    //             args: { toSign },
+    //             freeze: false
+    //         }).then(r => resolve(r.message))
+    //             .catch(reject);
+    //     };
+    // });
 };
 
 // Call this ONCE on page build (not inside click handlers)
