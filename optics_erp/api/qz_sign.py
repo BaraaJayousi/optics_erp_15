@@ -7,11 +7,12 @@ from cryptography.hazmat.primitives.asymmetric import padding
 # Load your private key once (store it outside the repo if possible)
 _KEY_PATH = "/home/frappe/qz-keys/qz-app.key"  # <-- change this
 
-with open(_KEY_PATH, "rb") as f:
-    _PRIVATE = load_pem_private_key(f.read(), password=None)
+# with open(_KEY_PATH, "rb") as f:
+#     _PRIVATE = load_pem_private_key(f.read(), password=None)
 
 @frappe.whitelist(methods=["POST"])
 def qz_sign(toSign: str):
+    _PRIVATE="tesxt"
     print('qz_sign called')
     """Return base64 signature for QZ Tray."""
     if not toSign:
