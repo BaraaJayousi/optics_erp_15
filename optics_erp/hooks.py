@@ -41,7 +41,7 @@ app_include_js =  ['pos_extend.bundle.js']
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-page_js = {"point-of-sale" : "public/js/pos.js"}
+page_js = {"point-of-sale" : ["public/js/pos.js", "public/js/qz_init.js"]}
 
 # include js in doctype views
 doctype_js = {"Customer" : "public/js/custom_client_scripts/customer/make_full_name.js"}
