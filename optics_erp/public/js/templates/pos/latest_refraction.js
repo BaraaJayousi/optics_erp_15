@@ -1,6 +1,23 @@
 export const latest_refraction_template = (refraction) => {
     return ` 
                                 <!-- Refraction Summary -->
+<style>
+  /* Make an LTR island that ignores page-level RTL */
+  .force-ltr {
+    direction: ltr !important;
+    unicode-bidi: isolate !important; /* keep nested content LTR even inside RTL contexts */
+  }
+
+  /* Prevent Bootstrap-RTL utilities from flipping inside the island */
+  .force-ltr .float-start { float: left !important; }
+  .force-ltr .float-end   { float: right !important; }
+  .force-ltr .ms-1, .force-ltr .ms-2, .force-ltr .ms-3, .force-ltr .ms-4, .force-ltr .ms-5 { margin-left: var(--bs-spacer, .25rem) !important; }
+  .force-ltr .me-1, .force-ltr .me-2, .force-ltr .me-3, .force-ltr .me-4, .force-ltr .me-5 { margin-right: var(--bs-spacer, .25rem) !important; }
+
+  /* Keep table headers/cells logical; you already use text-center where needed */
+  .force-ltr table { direction: ltr !important; }
+</style>
+<div class="force-ltr">
 <div class="shadow-sm mb-3">
     <div class="card-body">
         <div class="d-flex flex-wrap justify-content-between gap-0">
@@ -84,6 +101,8 @@ export const latest_refraction_template = (refraction) => {
 <button class="btn btn-primary btn-sm btn-enter-prescription">Enter Prescription</button>
 <button class="btn btn-primary btn-sm btn-previouse-prescriptions">Previouse Prescriptions</button>
 <button class="btn btn-primary btn-sm btn-print-prescritption">Print Prescription</button>
+</div>
+
                                 `;
 }
 
