@@ -389,7 +389,7 @@ Promise.all([
                 format,
                 no_letterhead: 0,
                 show_toolbar: 0,
-                _lang: frappe.boot.user_lang || frappe.boot.lang || 'en'
+                _lang: 'en'
             });
             return `${base}/printview?${qs.toString()}`;
         }
