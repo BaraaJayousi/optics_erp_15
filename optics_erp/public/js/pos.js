@@ -1,45 +1,13 @@
 frappe.provide('erpnext.PointOfSale');
 
 Promise.all([
-    frappe.require('point-of-sale.bundle.js'),
+    frappe.require('point-of-sale.bundle.js'), // Ensure POS is loaded
     frappe.require('pos_extend.bundle.js')
 ]).then(() => {
-    // Extend the standard POS Controller
-    erpnext.PointOfSale.Controller = class POSWithOptics extends erpnext.PointOfSale.Controller {
-        constructor(wrapper) {
-            super(wrapper);
-        }
-
-        prepare_dom() {
-            super.prepare_dom();
-            // this.wrapper.append(`<section class="custom-po"></section>`);
-            // this.$custome_po = this.wrapper.find(".custom-po");
-            // this.$custome_po.append(`<div class="optical-prescription-section" style="margin-top: 16px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            //     <h4>Optical Prescription</h4>
-            //     <button class="btn btn-primary btn-sm btn-enter-prescription">Enter Prescription</button>
-            // </div>`);
-
-            // this.$custome_po.find('.btn-enter-prescription').on('click', alert('Enter Prescription clicked') );
-
-        }
-        // override menu preparation and add your own buttons
-        prepare_menu() {
-            // call base method
-            super.prepare_menu();
-            // add custom button
-            // this.page.add_menu_item(__('Optical Prescription'), this.open_optical_dialog.bind(this));
-        }
-
-
-        // your custom method – for example, collect lens prescription details
-
-    };
-
     //Extend pos_item_cart to show customer details
     erpnext.PointOfSale.ItemCart = class ItemCartWithCustomerDetails extends erpnext.PointOfSale.ItemCart {
         constructor(wrapper, pos) {
             super(wrapper, pos);
-            // console.log('ItemCartWithCustomerDetails constructor');
         }
 
         toggle_customer_info(show) {
@@ -47,6 +15,7 @@ Promise.all([
 
             if (show) {
                 optics_erp.initQZ(); // Initialize QZ Tray when customer info is shown
+
                 // Add custom customer details section
                 const { customer } = this.customer_info || {};
                 if (!customer) return;
@@ -82,10 +51,6 @@ Promise.all([
                         }
                     }
                 });
-
-
-
-                // $customer_form.find('.btn-enter-prescription').on('click', alert('Enter Prescription clicked') );
             }
         }
 
@@ -173,7 +138,7 @@ Promise.all([
                     const field = qe_dialog.get_field(fieldname);
                     field.$input.prop('type', 'number');
                     field.$input.attr('step', '0.05');
-                    field.$input.attr('min', '0.1');
+                    field.$input.attr('min', '0.0');
                     field.$input.attr('max', '2.0');
                     field.$input.on('change', () => {
                         let val = parseFloat(field.get_value());
@@ -254,83 +219,83 @@ Promise.all([
                     // console.log(rx);
                     // A simple detail layout; replace with your template if you have one
                     $body.html(`
-<div class="mb-2 d-flex justify-content-between align-items-center">
-    <button class="btn btn-secondary btn-sm back-btn">${__('Back')}</button>
-    <span class="badge badge-info">
-        ${rx.prescription_type}
-    </span>
-</div>
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                            <button class="btn btn-secondary btn-sm back-btn">${__('Back')}</button>
+                            <span class="badge badge-info">
+                                ${rx.prescription_type}
+                            </span>
+                        </div>
 
-<!-- Meta section -->
-<div class="table-responsive">
-    <table class="table table-sm table-borderless mb-3">
-        <thead class="thead-light">
-            <tr>
-                <th colspan="4" class="align-middle">
-                    ${__('Refraction Details')}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row" class="w-25">${__('Refraction Date')}</th>
-                <td class="w-25">${rx.refraction_date || '--'}</td>
-                <th scope="row" class="w-25">${__('Creation Date')}</th>
-                <td class="w-25">${rx.creation || '--'}</td>
-            </tr>
-            <tr>
-                <th scope="row">${__('Expiry Date')}</th>
-                <td>${rx.expiry_date || '--'}</td>
-                <th scope="row">${__('Refractionist')}</th>
-                <td>${rx.refractor || '--'}</td>
-            </tr>
-            <tr>
-                <th scope="row">${__('PD Right')}</th>
-                <td>${rx.right_pd_mm || '--'}</td>
-                <th scope="row">${__('PD Left')}</th>
-                <td>${rx.left_pd_mm || '--'}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        <!-- Meta section -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless mb-3">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th colspan="4" class="align-middle">
+                                            ${__('Refraction Details')}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="w-25">${__('Refraction Date')}</th>
+                                        <td class="w-25">${rx.refraction_date || '--'}</td>
+                                        <th scope="row" class="w-25">${__('Creation Date')}</th>
+                                        <td class="w-25">${rx.creation || '--'}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">${__('Expiry Date')}</th>
+                                        <td>${rx.expiry_date || '--'}</td>
+                                        <th scope="row">${__('Refractionist')}</th>
+                                        <td>${rx.refractor || '--'}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">${__('PD Right')}</th>
+                                        <td>${rx.right_pd_mm || '--'}</td>
+                                        <th scope="row">${__('PD Left')}</th>
+                                        <td>${rx.left_pd_mm || '--'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-<!-- Rx values section -->
-<div class="table-responsive">
-    <table class="table table-sm table-hover mb-0">
-        <thead class="thead-light">
-            <tr>
-                <th class="text-nowrap">${__('Eye')}</th>
-                <th class="text-nowrap">${__('SPH')}</th>
-                <th class="text-nowrap">${__('CYL')}</th>
-                <th class="text-nowrap">${__('Axis')}</th>
-                <th class="text-nowrap">${__('ADD')}</th>
-                <th class="text-nowrap">${__('VAsc')}</th>
-                <th class="text-nowrap">${__('VAcc')}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">${__('Right')}</th>
-                <td>${rx.right_sph != null ? rx.right_sph : '--'}</td>
-                <td>${rx.right_cyl != null ? rx.right_cyl : '--'}</td>
-                <td>${rx.right_axis != null ? rx.right_axis : '--'}</td>
-                <td>${rx.right_add != null ? rx.right_add : '--'}</td>
-                <td>${rx.right_va_sc_decimal != null ? rx.right_va_sc_decimal : '--'}</td>
-                <td>${rx.right_va_cc_decimal != null ? rx.right_va_cc_decimal : '--'}</td>
-            </tr>
-            <tr>
-                <th scope="row">${__('Left')}</th>
-                <td>${rx.left_sph != null ? rx.left_sph : '--'}</td>
-                <td>${rx.left_cyl != null ? rx.left_cyl : '--'}</td>
-                <td>${rx.left_axis != null ? rx.left_axis : '--'}</td>
-                <td>${rx.left_add != null ? rx.left_add : '--'}</td>
-                <td>${rx.left_va_sc_decimal != null ? rx.left_va_sc_decimal : '--'}</td>
-                <td>${rx.left_va_cc_decimal != null ? rx.left_va_cc_decimal : '--'}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-                        `);
+                        <!-- Rx values section -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-nowrap">${__('Eye')}</th>
+                                        <th class="text-nowrap">${__('SPH')}</th>
+                                        <th class="text-nowrap">${__('CYL')}</th>
+                                        <th class="text-nowrap">${__('Axis')}</th>
+                                        <th class="text-nowrap">${__('ADD')}</th>
+                                        <th class="text-nowrap">${__('VAsc')}</th>
+                                        <th class="text-nowrap">${__('VAcc')}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">${__('Right')}</th>
+                                        <td>${rx.right_sph != null ? rx.right_sph : '--'}</td>
+                                        <td>${rx.right_cyl != null ? rx.right_cyl : '--'}</td>
+                                        <td>${rx.right_axis != null ? rx.right_axis : '--'}</td>
+                                        <td>${rx.right_add != null ? rx.right_add : '--'}</td>
+                                        <td>${rx.right_va_sc_decimal != null ? rx.right_va_sc_decimal : '--'}</td>
+                                        <td>${rx.right_va_cc_decimal != null ? rx.right_va_cc_decimal : '--'}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">${__('Left')}</th>
+                                        <td>${rx.left_sph != null ? rx.left_sph : '--'}</td>
+                                        <td>${rx.left_cyl != null ? rx.left_cyl : '--'}</td>
+                                        <td>${rx.left_axis != null ? rx.left_axis : '--'}</td>
+                                        <td>${rx.left_add != null ? rx.left_add : '--'}</td>
+                                        <td>${rx.left_va_sc_decimal != null ? rx.left_va_sc_decimal : '--'}</td>
+                                        <td>${rx.left_va_cc_decimal != null ? rx.left_va_cc_decimal : '--'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `);
                     $body.find('.back-btn').on('click', () => load_list());
                 }).catch(() => {
                     $body.html(`<div class="text-danger">${__('Failed to load refraction')}</div>`);
@@ -346,7 +311,14 @@ Promise.all([
             const d = new frappe.ui.Dialog({
                 title: __('Print Prescription'),
                 fields: [
-                    { label: __('Select Prescription'), fieldname: 'refraction', fieldtype: 'Link', options: 'Refraction', reqd: 1, filters: { customer: this.customer_info.customer } },
+                    {
+                        label: __('Select Prescription'),
+                        fieldname: 'refraction',
+                        fieldtype: 'Link',
+                        options: 'Refraction',
+                        reqd: 1,
+                        filters: { customer: this.customer_info.customer },
+                    },
                 ],
                 primary_action_label: __('Print'),
                 primary_action: (values) => {
@@ -376,7 +348,16 @@ Promise.all([
                 }
             });
 
-
+            frappe.db.get_list('Refraction', {
+                filters: { customer: this.customer_info.customer },
+                fields: ['name'],
+                order_by: 'creation desc',
+                limit: 1
+            }).then(r => {
+                if (r.length) {
+                    d.set_value('refraction', r[0].name);
+                }
+            });
 
             d.show();
         }
