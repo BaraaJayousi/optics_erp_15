@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"w12FcVHyQh\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Optics ERP</span>\",\"col\":12}},{\"id\":\"gbQ0zU-ppc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Refraction\",\"col\":6}},{\"id\":\"sCuHfj1pve\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Examiner\",\"col\":6}},{\"id\":\"IZmNmp3hVI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"POS\",\"col\":3}}]",
+ "content": "[{\"id\":\"w12FcVHyQh\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Optics ERP</span>\",\"col\":12}},{\"id\":\"gbQ0zU-ppc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Refraction\",\"col\":6}},{\"id\":\"sCuHfj1pve\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Examiner\",\"col\":6}},{\"id\":\"IZmNmp3hVI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"POS\",\"col\":3}},{\"id\":\"bl8pDEhD0W\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add Frame\",\"col\":3}}]",
  "creation": "2025-10-16 00:55:55.510624",
  "custom_blocks": [],
  "docstatus": 0,
@@ -34,7 +34,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-10-16 01:05:03.353411",
+ "modified": "2025-10-16 22:37:06.186303",
  "modified_by": "Administrator",
  "module": "Optics ERP",
  "name": "Optics ERP",
@@ -70,6 +70,14 @@
    "label": "POS",
    "link_to": "point-of-sale",
    "type": "Page"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Add Frame",
+   "link_to": "Frame Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
   },
   {
    "color": "Grey",

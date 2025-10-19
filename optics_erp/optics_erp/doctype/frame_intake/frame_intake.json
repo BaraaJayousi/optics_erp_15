@@ -1,0 +1,244 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{brand_name}-{frame_code}-{color_code}-{frame_category}-{frame_subcategory}",
+ "creation": "2025-10-16 20:04:42.002859",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "main_data_section",
+  "brand",
+  "frame_material",
+  "frame_code",
+  "color_code",
+  "column_break_jpvt",
+  "frame_type",
+  "frame_category",
+  "frame_subcategory",
+  "brand_name",
+  "prices_section",
+  "selling_price",
+  "column_break_ramg",
+  "purchase_price",
+  "inventory_section",
+  "quantity",
+  "warehouse",
+  "image",
+  "barcode",
+  "extra_data_section",
+  "frame_size",
+  "column_break_nvyv",
+  "bridge_size",
+  "column_break_dimr",
+  "temple_size",
+  "amended_from",
+  "section_break_hyjr",
+  "created_item"
+ ],
+ "fields": [
+  {
+   "fieldname": "main_data_section",
+   "fieldtype": "Section Break",
+   "label": "Main Data"
+  },
+  {
+   "fieldname": "frame_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Frame Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "color_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Color Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Brand",
+   "options": "Brand",
+   "reqd": 1
+  },
+  {
+   "fieldname": "frame_material",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Frame Material",
+   "options": "Frame Material",
+   "reqd": 1
+  },
+  {
+   "fieldname": "frame_type",
+   "fieldtype": "Select",
+   "label": "Frame Type",
+   "options": "Full Frame\nSemi-rimless\nRimless",
+   "reqd": 1
+  },
+  {
+   "fieldname": "frame_category",
+   "fieldtype": "Select",
+   "label": "Frame Category",
+   "options": "Medical Frame\nSunglasses",
+   "reqd": 1
+  },
+  {
+   "fieldname": "frame_subcategory",
+   "fieldtype": "Select",
+   "label": "Frame Subcategory",
+   "options": "Men\nWomen\nUnisex\nKids",
+   "reqd": 1
+  },
+  {
+   "fieldname": "prices_section",
+   "fieldtype": "Section Break",
+   "label": "Prices"
+  },
+  {
+   "default": "250",
+   "fieldname": "selling_price",
+   "fieldtype": "Int",
+   "label": "Selling Price",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ramg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "80",
+   "fieldname": "purchase_price",
+   "fieldtype": "Int",
+   "label": "Purchase Price",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "inventory_section",
+   "fieldtype": "Section Break",
+   "label": "Inventory"
+  },
+  {
+   "default": "1",
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "label": "Quantity",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "extra_data_section",
+   "fieldtype": "Section Break",
+   "label": "Extra Data"
+  },
+  {
+   "fieldname": "frame_size",
+   "fieldtype": "Int",
+   "label": "Frame Size",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_nvyv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bridge_size",
+   "fieldtype": "Int",
+   "label": "Bridge Size",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_dimr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "temple_size",
+   "fieldtype": "Int",
+   "label": "Temple Size",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Barcode",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jpvt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "brand_name",
+   "fieldtype": "Read Only",
+   "label": "Brand Name"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Frame Intake",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_hyjr",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "created_item",
+   "fieldtype": "Link",
+   "label": "Created Item",
+   "options": "Item"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "make_attachments_public": 1,
+ "modified": "2025-10-17 19:52:35.852172",
+ "modified_by": "Administrator",
+ "module": "Optics ERP",
+ "name": "Frame Intake",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
