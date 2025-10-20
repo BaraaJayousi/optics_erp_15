@@ -78,3 +78,5 @@ class FrameIntake(Document):
 			f"Item <b>{item.name}</b> created with barcode <code>{code}</code>.",
 			title="Frame Intake Complete"
 		)
+
+
