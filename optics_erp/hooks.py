@@ -138,13 +138,13 @@ doctype_js = {"Customer" : "public/js/custom_client_scripts/customer/make_full_n
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Item": {
+        "on_update": "optics_erp.utils.item_hook.on_item_update",
+        "after_insert": "optics_erp.utils.item_hook.on_item_update",
+        "autoname": "optics_erp.utils.lens_variant_naming.custom_variant_name",
+    }
+}
 
 # Scheduled Tasks
 # ---------------
