@@ -34,7 +34,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-10-21 20:06:22.812287",
+ "modified": "2025-10-22 14:04:36.744977",
  "modified_by": "Administrator",
  "module": "Optics ERP",
  "name": "Optics ERP",
@@ -72,14 +72,6 @@
    "type": "Page"
   },
   {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Add Frame",
-   "link_to": "Frame Intake",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
    "color": "Green",
    "doc_view": "Report Builder",
    "format": "{}",
@@ -88,6 +80,14 @@
    "report_ref_doctype": "Item",
    "stats_filter": "[[\"Item\",\"item_group\",\"=\",\"Stock Lenses\",false]]",
    "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Add Frame",
+   "link_to": "Frame Intake",
+   "stats_filter": "[]",
+   "type": "DocType"
   },
   {
    "color": "Grey",
