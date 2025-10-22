@@ -2,6 +2,21 @@ import frappe
 
 def execute():
     def ensure_eyeframe_basics(group_name="Eyeglass Frames", uom_name="Frame", parent_group="All Item Groups"):
+        """
+        This patch updates the Brand DocType so that:
+        1. Documents are auto-named using the database's autoincrement (autoincrement naming method).
+        2. The title field for the Brand DocType is set to the 'brand' field.
+        """
+
+        # Update the 'autoname' property to use auto-increment
+        frappe.db.set_value("DocType", "Brand", "autoname", "autoincrement")
+
+        # Update the title field to use the 'brand' field
+        # (title_field is used in the form header and list view)
+        frappe.db.set_value("DocType", "Brand", "title_field", "brand")
+
+        # Clear cache so the new settings take effect immediately
+        frappe.clear_cache(doctype="Brand")
         # UOM
         if not frappe.db.exists("UOM", uom_name):
             frappe.get_doc({
