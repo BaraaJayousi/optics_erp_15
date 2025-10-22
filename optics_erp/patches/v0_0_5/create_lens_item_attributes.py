@@ -1,4 +1,5 @@
 # optics_erp/patches/v0_0_6/create_lens_item_attributes.py
+'''
 import frappe
 
 def upsert_numeric_attribute(attribute_name: str, from_range: float, to_range: float, increment: float):
@@ -72,6 +73,7 @@ def execute():
             ("1.67", "1.67"),
         ],
     )
+    '''
 import frappe
 
 def upsert_numeric_attribute(attribute_name: str, from_range: float, to_range: float, increment: float):
@@ -131,7 +133,7 @@ def upsert_discrete_attribute(attribute_name: str, values_with_abbrs: list[tuple
 
 def execute():
     # 1) Sphere Power: –12.00 → +12.00, step 0.25
-    upsert_numeric_attribute("Sphere Power", -12.00, 12.00, 0.25)
+    upsert_numeric_attribute("Sphere Power", -14.00, 14.00, 0.25)
 
     # 2) Cylinder Power: –6.00 → 0.00, step 0.25
     upsert_numeric_attribute("Cylinder Power", -6.00, 0.00, 0.25)
@@ -140,23 +142,8 @@ def execute():
     upsert_discrete_attribute(
         "Refractive Index",
         [
-            ("1.50", "1.50"),
             ("1.56", "1.56"),
-            ("1.59", "1.59"),
-            ("1.60", "1.60"),
+            ("1.61", "1.61"),
             ("1.67", "1.67"),
-            ("1.74", "1.74"),
-        ],
-    )
-
-    # 4) Coating (discrete)
-    upsert_discrete_attribute(
-        "Coating",
-        [
-            ("Hard Coat", "HC"),
-            ("Anti-Reflective", "AR"),
-            ("Blue Filter", "BF"),
-            ("Superhydrophobic", "SH"),
-            ("UV", "UV"),
         ],
     )
