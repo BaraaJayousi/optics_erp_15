@@ -8,7 +8,7 @@ def on_item_update(doc, _):
     """
     if getattr(doc, "has_variants", 0):
         # TEMPLATE
-        sync_from_template(doc.name, getattr(doc, "unified_price", None))
+        sync_from_template(doc.name, getattr(doc, "custom_unified_price", None))
         return
 
     if getattr(doc, "variant_of", None):
