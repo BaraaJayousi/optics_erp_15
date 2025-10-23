@@ -38,14 +38,14 @@ def sync_from_template(template_item_code: str, unified_rate: float | None):
     for variant in _get_variants(template_item_code):
         vdoc = frappe.get_doc("Item", variant)
         # choose variant override if provided, else unified
-        rate = getattr(vdoc, "override_price", None)
+        rate = getattr(vdoc, "custom_override_price", None)
         print(rate)
-        rate = float(rate) if rate not in (None, "") and int(getattr(vdoc, "do_not_sync_price", 0)) == 1 else float(unified_rate)
+        rate = float(rate) if rate not in (None, "") and int(getattr(vdoc, "custom_dont_sync_price", 0)) == 1 else float(unified_rate)
 
         _upsert_item_price(variant, selling_pl, rate)
         _upsert_item_price(variant, buying_pl, rate)
         # skip if explicitly opted-out
-        if int(getattr(vdoc, "do_not_sync_price", 0)) == 1:
+        if int(getattr(vdoc, "custom_dont_sync_price", 0)) == 1:
             continue
 
 def apply_variant_override_now(variant_item_code: str):
@@ -57,10 +57,10 @@ def apply_variant_override_now(variant_item_code: str):
     selling_pl, buying_pl = _default_price_lists()
 
     # Take override if present, else fall back to template unified
-    if vdoc.override_price not in (None, "") and int(getattr(vdoc, "do_not_sync_price", 0)) == 1:
-        rate = float(vdoc.override_price)
+    if vdoc.custom_override_price not in (None, "") and int(getattr(vdoc, "custom_dont_sync_price", 0)) == 1:
+        rate = float(vdoc.custom_override_price)
     else:
-        t_unified = frappe.db.get_value("Item", vdoc.variant_of, "unified_price")
+        t_unified = frappe.db.get_value("Item", vdoc.variant_of, "custom_unified_price")
         if t_unified in (None, ""):
             return  # nothing to write
         rate = float(t_unified)
