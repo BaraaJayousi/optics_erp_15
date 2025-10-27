@@ -8,18 +8,6 @@ def execute():
         2. The title field for the Brand DocType is set to the 'brand' field.
         """
 
-        # Use 'Expression' naming rule so Frappe interprets the autoname string
-        frappe.db.set_value("DocType", "Brand", "naming_rule", "Expression")
-
-        # Define the expression pattern.  Replace the pattern below with your desired
-        # prefix, date parts, fieldnames and number of digits in the series.
-        # The example below generates Brand names like BRD-YYYY-MM-{brand}-{###}
-        pattern = "format:{###}"
-
-        # Store the expression in the autoname field
-        frappe.db.set_value("DocType", "Brand", "autoname", pattern)
-
-        # Optionally keep the title field set to the 'brand' field so the form header
         # shows the Brand name rather than the numeric ID
         frappe.db.set_value("DocType", "Brand", "title_field", "brand")
 
