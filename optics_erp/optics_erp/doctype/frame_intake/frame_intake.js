@@ -60,6 +60,50 @@ function openPrintDialog(frm) {
 
     d.show();
 }
+function openIncreaseQtyDialog(frm) {
+    if (!frm.doc.created_item) {
+        frappe.msgprint(__('No linked Item found (created_item is empty). Submit the intake first.'));
+        return;
+    }
+
+    const d = new frappe.ui.Dialog({
+        title: __('Increase Quantity'),
+        fields: [
+            { fieldname: 'qty', label: __('Quantity'), fieldtype: 'Float', reqd: 1, default: 1, min: 0.0001 },
+            { fieldname: 'warehouse', label: __('Warehouse'), fieldtype: 'Link',
+                options: 'Warehouse', default: frm.doc.target_warehouse || frm.doc.warehouse || '' },
+            { fieldname: 'print_after', label: __('Print labels after adding?'), fieldtype: 'Check', default: 0 },
+        ],
+        primary_action_label: __('Add'),
+        primary_action(values) {
+            d.hide();
+            frappe.call({
+                method: 'optics_erp.api.frame_intake.add_quantity_for_intake',
+                args: {
+                    intake: frm.doc.name,
+                    qty: values.qty,
+                    warehouse: values.warehouse,
+                },
+                callback: function(r) {
+                    if (!r.exc) {
+                        frappe.show_alert({
+                            message: __('Added {0} pcs to stock entry {1}', [values.qty, r.message?.stock_entry || '']),
+                            indicator: 'green'
+                        });
+                        // refresh doc to update timestamps or fields if needed
+                        frm.reload_doc();
+                        // if user checked "print_after", use the existing print helper
+                        if (values.print_after) {
+                            const copies = Math.max(1, parseInt(values.qty, 10) || 1);
+                            doPrintLabels(frm, copies, 'label printer', 'Frame Barcode Label');
+                        }
+                    }
+                }
+            });
+        }
+    });
+    d.show();
+}
 
 // Core print helper using QZ + trimmed printview HTML
 async function doPrintLabels(frm, copies, printerName = 'label printer', formatName = 'Frame Barcode Label') {
