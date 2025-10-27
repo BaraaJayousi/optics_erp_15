@@ -8,12 +8,11 @@ def execute():
         2. The title field for the Brand DocType is set to the 'brand' field.
         """
 
-        # Update the 'autoname' property to use auto-increment
-        frappe.db.set_value("DocType", "Brand", "autoname", "autoincrement")
-
-        # Update the title field to use the 'brand' field
-        # (title_field is used in the form header and list view)
+        # shows the Brand name rather than the numeric ID
         frappe.db.set_value("DocType", "Brand", "title_field", "brand")
+
+        # Clear cache so the new naming settings take effect immediately
+        frappe.clear_cache(doctype="Brand")
 
         # Clear cache so the new settings take effect immediately
         frappe.clear_cache(doctype="Brand")
