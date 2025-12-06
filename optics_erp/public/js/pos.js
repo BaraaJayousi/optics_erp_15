@@ -2,7 +2,7 @@ frappe.provide('erpnext.PointOfSale');
 
 Promise.all([
     frappe.require('point-of-sale.bundle.js'), // Ensure POS is loaded
-    frappe.require('pos_extend.bundle.js')
+    frappe.require('pos_extend.bundle.js'),
 ]).then(() => {
     //Extend pos_item_cart to show customer details
     erpnext.PointOfSale.ItemCart = class ItemCartWithCustomerDetails extends erpnext.PointOfSale.ItemCart {
@@ -14,6 +14,14 @@ Promise.all([
             super.toggle_customer_info(show);
 
             if (show) {
+                // delegate click event for recent transactions
+                $(document).on('click', '.invoice-wrapper', function (e) {
+                    e.preventDefault();
+                    const invoice_name = $(this).data('invoiceName');
+                    if (invoice_name) {
+                        optics_erp.pos.show_transaction_dialog(invoice_name);
+                    }
+                });
                 optics_erp.initQZ(); // Initialize QZ Tray when customer info is shown
 
                 // Add custom customer details section
