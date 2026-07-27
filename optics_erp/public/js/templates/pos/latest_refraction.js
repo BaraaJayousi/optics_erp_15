@@ -1,4 +1,13 @@
 export const latest_refraction_template = (refraction) => {
+    const notes = typeof refraction.notes === 'string'
+        ? refraction.notes.trim()
+        : '';
+    const safe_notes = notes && window.frappe?.utils?.escape_html
+        ? window.frappe.utils.escape_html(notes)
+        : '';
+
+        console.log("safe_notes", safe_notes);
+
     return ` 
                                 <!-- Refraction Summary -->
 <style>
@@ -34,12 +43,15 @@ export const latest_refraction_template = (refraction) => {
                 </div>
             </div>
 
-            <hr class="my-3 ${refraction.note? 'd-flex' : 'd-none'} refraction-notes-separator">
-            <div class="refraction-notes ${refraction.note? 'd-flex' : 'd-none'}">
+            <hr class="my-3 ${safe_notes ? 'd-flex' : 'd-none'} refraction-notes-separator">
+
+            <div class="refraction-notes flex-column ${safe_notes ? 'd-flex' : 'd-none'}">
                 <div class="fw-semibold mb-1">Notes</div>
-                <div class="text-wrap notes-text">${refraction.note}</div>
+                <div
+                    class="text-wrap notes-text"
+                    style="white-space: pre-wrap;"
+                >${safe_notes}</div>
             </div>
-        </div>
     </div>
 
     <!-- Refraction Details Table -->
